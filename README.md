@@ -19,7 +19,7 @@ Installation
 Clone this repository:
 
 ```console
-https://github.com/abdounikarim/poc-symfony-doctrine-postgresql
+https://github.com/ProofOfConceptFactory/poc-symfony-doctrine-postgresql
 ```
 
 Go on the project root folder:
