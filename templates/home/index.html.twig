@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Hello from Symfony!👋</h1>
+    <h1>Hello from Symfony, Doctrine and PostgreSQL!👋</h1>
 
     <hr>
 
     <ul>
         {% for dummy in dummies %}
             <li>{{ dummy.name }}</li>
+        {% else %}
+            <li>No dummies found</li>
         {% endfor %}
     </ul>
 {% endblock %}

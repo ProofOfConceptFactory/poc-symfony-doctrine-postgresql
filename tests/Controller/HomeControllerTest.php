@@ -17,7 +17,7 @@ final class HomeControllerTest extends WebTestCase
         $this->assertResponseHeaderSame('Content-Type', 'text/html; charset=UTF-8');
         $this->assertResponseFormatSame('html');
 
-        $this->assertSelectorTextContains('h1', 'Hello from Symfony!👋');
+        $this->assertSelectorTextContains('h1', 'Hello from Symfony, Doctrine and PostgreSQL!👋');
         $this->assertEquals(1, $crawler->filter('hr')->count());
         $this->assertEquals(3, $crawler->filter('ul li')->count());
         $this->assertEquals('Foo', $crawler->filter('ul li')->eq(0)->text());
