@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {{ include('_header.html.twig') }}
+
+    <main>
+        <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl">Hello from Symfony, Doctrine and PostgreSQL!👋</h1>
+
+        <hr>
+
+        <ul class="max-w-md space-y-1 text-gray-700 list-disc list-inside dark:text-gray-600">
+            {% for dummy in dummies %}
+                <li>{{ dummy.name }}</li>
+            {% else %}
+                <li>No dummies found</li>
+            {% endfor %}
+        </ul>
+    </main>
+{% endblock %}
