@@ -1,0 +1,67 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/db?serverVersion=17&charset=utf8
+
+jobs:
+  tests:
+    name: Tests
+    # https://hub.docker.com/_/ubuntu/
+    runs-on: ubuntu-latest
+    services:
+      # https://hub.docker.com/_/postgres/
+      postgresql:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_DB: db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    strategy:
+      fail-fast: true
+      matrix:
+        php-versions: ['8.4']
+    steps:
+      # —— Setup Github actions 🐙 —————————————————————————————————————————————
+      # https://github.com/actions/checkout (official)
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # https://github.com/shivammathur/setup-php (community)
+      - name: Setup PHP, extensions and composer with shivammathur/setup-php
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_sqlite, dom, filter, gd, iconv, json, mbstring, pdo, xdebug
+          tools: composer:v2
+        env:
+          update: true
+
+      # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
+      - name: Install Composer dependencies
+        run: composer install
+
+      # —— Tests ✅ ———————————————————————————————————————————————————————————
+      - name: Create database
+        run: bin/console doctrine:database:create --if-not-exists --env=test
+
+      - name: Run migrations
+        run: bin/console doctrine:migrations:migrate --no-interaction --env=test
+
+      - name: Insert data with symfony command in test env
+        run: bin/console doctrine:query:sql "INSERT INTO dummy (id, name) VALUES (1, 'Foo'), (2, 'Bar'), (3, 'Baz');" --env=test
+
+      - name: Run phpunit
+        run: SYMFONY_DEPRECATIONS_HELPER=disabled bin/phpunit
