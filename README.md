@@ -1,6 +1,8 @@
 Symfony with Doctrine and PostgreSQL
 ========================
 
+[![GitHub Actions](https://github.com/ProofOfConceptFactory/poc-symfony-doctrine-postgresql/actions/workflows/ci.yaml/badge.svg)](https://github.com/ProofOfConceptFactory/poc-symfony-doctrine-postgresql/actions/workflows/ci.yaml)
+
 This POC is just a Symfony minimalist app with Doctrine and PostgreSQL.
 It uses a Docker container for PostgreSQL Database.
 
