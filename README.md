@@ -57,7 +57,7 @@ symfony console doctrine:migrations:migrate --no-interaction
 Insert data with symfony command:
 
 ```console
-symfony console dbal:run-sql "INSERT INTO dummy (id, name) VALUES (1, 'Foo'), (2, 'Bar'), (3, 'Baz');"
+symfony console dbal:run-sql "INSERT INTO dummy (name) VALUES ('Foo'), ('Bar'), ('Baz');"
 ```
 
 Select data with symfony command:
@@ -96,7 +96,7 @@ symfony console doctrine:migrations:migrate --no-interaction --env=test
 Insert data with symfony command in test env:
 
 ```console
-symfony console dbal:run-sql "INSERT INTO dummy (id, name) VALUES (1, 'Foo'), (2, 'Bar'), (3, 'Baz');" --env=test
+symfony console dbal:run-sql "INSERT INTO dummy (name) VALUES ('Foo'), ('Bar'), ('Baz');" --env=test
 ```
 
 Select data with symfony command in test env:
